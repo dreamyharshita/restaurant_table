@@ -2,6 +2,7 @@ import React from "react";
 
 
 const ShowItem=(props)=>{
+    
 
     const cond=props.OnAddition;
      console.log(cond);
