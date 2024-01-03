@@ -14,6 +14,7 @@ const ShowItem=(props)=>{
     ))
     }
     <hr/>
+    
     <h2>Table 2</h2>
     {props.tableData.map((table,index) => (
       table.tableNo==='table-2' && <li key = {index}> order Id: {table.orderId} ,price - {table.price} ,dish - {table.dish} - <button onClick={()=> {props.delete(table.orderId)}}>Delete Product</button></li>

@@ -65,6 +65,7 @@ import ShowItem from "./ShowItem";
     setDish('');
     setPrice('');
     setTableNo('');
+    
   }
 
   const deleteData=(orderId)=>{
