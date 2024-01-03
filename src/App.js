@@ -1,5 +1,6 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import ShowItem from "./ShowItem";
+
 
 
  function App() {
@@ -9,7 +10,28 @@ import ShowItem from "./ShowItem";
   
   const [dish,setDish]=useState('');
   const [tableNo,setTableNo]=useState('');
+  const [tableData,setData]=useState([]);
+
+  useEffect(()=>{
+    console.log("useEffect");
+    const localStorageObj = localStorage;
+    const localStorageKeys = Object.keys(localStorageObj);
+    const loadedItem = [];
+    
+    for (let i in localStorageKeys) {
+      const key = localStorageKeys[i];
+      const itemDetailsString = localStorageObj[key];
+    
+      const updatedItemDetails = JSON.parse(itemDetailsString);
+      loadedItem.push(updatedItemDetails);
+    }
+  console.log("loaded item",loadedItem)
+    setData(loadedItem);
+  },[]);
+ 
   
+
+
   const OrderIdHandler=(e)=>{
     setOrderId(e.target.value);
   }
@@ -23,24 +45,37 @@ import ShowItem from "./ShowItem";
     setTableNo(e.target.value);
   }
   
+  
+
+
   const ManageData=(e)=>{
     e.preventDefault();
-    const obj={orderId,price,dish,tableNo}
-    localStorage.setItem(orderId,JSON.stringify(obj));
-   
-   console.log(tableNo);
+    const obj={
+      orderId: orderId,
+      price: price,
+      dish: dish,
+      tableNo: tableNo};
 
-   <ShowItem OnAddition={true}  />
+      setData([...tableData,obj]);
+
+    localStorage.setItem(orderId,JSON.stringify(obj));
+  
     
     setOrderId('');
     setDish('');
     setPrice('');
     setTableNo('');
   }
+
+  const deleteData=(orderId)=>{
+    const updatedData = tableData.filter((item) => item.orderId !== orderId);
+    setData(updatedData);
+    localStorage.removeItem(orderId);
+  }
   
-  return (
-   
-    <>
+  return   (
+  <>
+
    <form>
     <label>Unique Order Id</label>
     <input type="number" id="order-id" onChange={OrderIdHandler} value={orderId}></input>
@@ -64,8 +99,7 @@ import ShowItem from "./ShowItem";
 
    </form>
    
-   <ShowItem OnAddition={false}/>
-   
+     <ShowItem  tableData={tableData} delete={deleteData}/> 
     </>
   );
 }

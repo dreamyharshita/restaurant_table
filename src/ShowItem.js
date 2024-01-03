@@ -3,21 +3,32 @@ import React from "react";
 
 const ShowItem=(props)=>{
     
+  return(
+    <div>
+    <h1>Tables</h1>
+    <hr/>
+    <h2>Table 1</h2>
+    {
+    props.tableData.map((table,index) => (
+      table.tableNo==='table-1' && <li key = {index}> order Id: {table.orderId}, price - {table.price} ,dish - {table.dish} - <button onClick={()=> {props.delete(table.orderId)}}>Delete Product</button></li>
+    ))
+    }
+    <hr/>
+    <h2>Table 2</h2>
+    {props.tableData.map((table,index) => (
+      table.tableNo==='table-2' && <li key = {index}> order Id: {table.orderId} ,price - {table.price} ,dish - {table.dish} - <button onClick={()=> {props.delete(table.orderId)}}>Delete Product</button></li>
+    ))
+    }
+    <hr/>
+    <h2>Table 3</h2>
+    { props.tableData.map((table,index) => (
+      table.tableNo==='table-3' && <li key = {index}> order Id: {table.orderId}, price - {table.price}, dish - {table.dish} - <button onClick={()=> {props.delete(table.orderId)}}>Delete Product</button></li>
+    ))
+    }
+    
+  </div>
+  );
 
-    const cond=props.OnAddition;
-     console.log(cond);
-    return(
-        <div>
-     { !cond && <div>
-        <ul id="table 1" type="circle">Table 1</ul>
-        <ul id="table 2">Table 2</ul>
-        
-        <ul id="table 3">Table 3</ul>
-        
-        </div> }
-        
-        
-        </div>
-    )
+ 
 }
 export default ShowItem;
