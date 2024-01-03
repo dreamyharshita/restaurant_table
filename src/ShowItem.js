@@ -14,6 +14,8 @@ const ShowItem=(props)=>{
     ))
     }
     <hr/>
+
+
     
     <h2>Table 2</h2>
     {props.tableData.map((table,index) => (
